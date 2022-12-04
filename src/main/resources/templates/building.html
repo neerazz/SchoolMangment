@@ -1,0 +1,66 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Building</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Building</h1>
+    <div class = "container">
+        <div class = "container">
+            <div class="row">
+                <div class="col-sm"> Name: <b th:text="${building.name}" /> <br/> </div>
+                <div class="col"> Description: <b th:text="${building.description}" /> <br/> </div>
+                <div class="col">
+                    <form action="#" th:action="@{'/building/{id}'(id=${building.id})}" th:method="delete" >
+                        <input type="hidden" name="_method" value="delete" />
+                        <button type="submit"  class="btn btn-danger" id="deleteButton">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h5>Rooms</h5>
+                <div class="container">
+                    <form action ="#" th:action="@{'/buildings/newRoom/{bldId}'(bldId=${building.id})}" th:method="get">
+                        <input type="hidden" name="_method" value="get" />
+                        <button class="badge badge-primary" type="submit" id="submitButton">Create Room</button>
+                    </form>
+
+
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Room </th>
+                            <th>Size</th>
+                        </tr>
+                        <tr th:each="room : ${building.rooms}">
+                            <td th:text ="${room.name}"></td>
+                            <td th:text= "${room.size}"> </td>
+                            <td><a class="badge badge-info" th:href ="@{/building/room/{roomId} (roomId=${room.id} ) }"> view  </a></td>
+                        </tr>
+                     </table>
+                </div>
+            </div>
+            <br/>
+        </div>
+
+        <div class="container">
+            <form action="#" th:action="@{'/building/{id}'(id=${building.id})}" th:object="${building}" th:method="post" >
+                <input type="hidden" class="form-control" th:field="*{id}" />
+
+                <label th:for="*{name}">Name</label>
+                <input type="text" class="form-control" th:field="*{name}" />
+
+                <label th:for="*{description}">Description</label>
+                <input type="text" class="form-control" th:field="*{description}" />
+
+                <button type="submit"  class="btn btn-primary"  id="updateButton">Update</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

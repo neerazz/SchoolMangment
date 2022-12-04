@@ -1,0 +1,70 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.0'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.neeraj'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+    maven { url = uri('https://repo.maven.apache.org/maven2/') }
+    mavenCentral()
+}
+
+dependencies {
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.hibernate.validator:hibernate-validator'
+	implementation 'org.hibernate.validator:hibernate-validator-annotation-processor'
+	implementation 'org.apache.httpcomponents:httpclient'
+	implementation 'org.apache.httpcomponents:httpmime'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+
+//    Dependencies for Database
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.mongodb:bson:3.5.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+//	implementation 'org.postgresql:postgresql'
+
+//    Security Dependencies
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+//    Other Dependencies
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
+
+//   Test Dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+// mandatory dependencies for using Spock
+	testImplementation 'org.codehaus.groovy:groovy:3.0.13'
+	testImplementation('org.spockframework:spock-core:2.3-groovy-3.0')
+	testImplementation('org.spockframework:spock-spring:2.3-groovy-3.0')
+
+// optional dependencies for using Spock
+	testImplementation "org.hamcrest:hamcrest-core:2.2"   // only necessary if Hamcrest matchers are used
+	testRuntimeOnly 'net.bytebuddy:byte-buddy:1.12.19' // allows mocking of classes (in addition to interfaces)
+	testRuntimeOnly "org.objenesis:objenesis:3.2"
+
+//    UI Dependencies
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Room</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Create New Room?</h1>
+
+
+    <div class = "container">
+        <form action="#" th:action="@{'/buildings/newRoom/{id}'(id=${building.id})}" th:object="${room}" th:method="post" >
+            <div class="row">
+                <div class="col">
+                    <label th:for="*{name}">Name</label>
+                    <input type="text" label="Room Name" class="form-control" th:field="*{name}" />
+                </div>
+                <div class="col">
+                    <label th:for="*{size}">Size</label>
+                    <input type="number" label="Room Name" class="form-control" th:field="*{size}" />
+                </div>
+                <div class="col">
+                    <input type="hidden" name="_method" value="post" />
+                    <button type="submit" class="btn btn-primary"  id="submitButton">Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+# JPA specific configs
+spring:
+  application:
+    name: School Management Application
+  profiles:
+    active: ${ENV_NAME:local}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: public
+  thymeleaf:
+    enabled: true
+    suffix: .html
+  datasource:
+    url: jdbc:postgresql://localhost:1432/sm-app
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: my-secret-pw
+
+# Logging properties
+logging:
+  level:
+    root: INFO
+    com.com.neeraj.schoolmanagement: DEBUG
+    com.zaxxer.hikari.HikariConfig: DEBUG
+
+# Actuator properties
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+global:
+  school: MSU Denver
+  freshman: 0
+  sophomore: 30
+  junior: 60
+  senior: 90

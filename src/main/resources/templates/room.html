@@ -1,0 +1,67 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Room</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Edit Room</h1>
+    <div class = "container">
+        <div class = "container">
+            <div class="row">
+                <div class="col"> Room:        <b th:text="${room.name}" /> <br/> </div>
+                <div class="col"> Size: <b th:text="${room.size}" /> <br/> </div>
+                <div class="col">
+                    <form action="#" th:action="@{'/building/room/{id}'(id=${room.id})}" th:method="delete" >
+                        <input type="hidden" name="_method" value="delete" />
+                        <button type="submit" class="btn btn-danger"  id="submitButton">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class = "container">
+            <h5> Room's Sections</h5>
+            <div class ="container">
+                <table class ="table table-striped">
+                    <tr>
+                        <th>Course #</th>
+                        <th>Section #</th>
+                        <th>Name</th>
+                        <th>Days</th>
+                        <th>Time</th>
+                        <th>Semester</th>
+                    </tr>
+                    <tr th:each="section : ${room.sectionList}">
+                        <td th:text="${section.course?.number}"></td>
+                        <td th:text="${section.number}"></td>
+                        <td th:text="${section.course?.name}"></td>
+                        <td th:text="${section.schedule}"></td>
+                        <td th:text="${section.getTimeStamp()}"></td>
+                        <td th:text="${section.semester.year + ' ' + section.semester.season}"></td>
+                        <td><a class="badge badge-info"  th:href="@{/section/{id}(id=${section.id})}">view</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    <br/>
+            <form action="#" th:action="@{'/building/room/{id}'(id=${room.id})}" th:object="${room}" th:method="post" >
+                <input type="hidden" class="form-control" th:field="*{id}" />
+
+                <label th:for="*{name}">Name</label>
+                <input type="text" class="form-control" th:field="*{name}" />
+
+                <label th:for="*{size}">Size</label>
+                <input type="number" class="form-control" th:field="*{size}" />
+                
+                <button type="submit" class="btn btn-primary"  id="updateButton">Update</button>
+            </form>
+
+
+</div>
+</div>
+</body>
+</html>
